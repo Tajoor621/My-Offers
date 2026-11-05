@@ -17,7 +17,8 @@
     "calendar": "Year",
     "emergency": "Emergency",
     "cases": "Cases",
-    "report": "Report"
+    "report": "Report",
+    "medicines": "Medicines"
   },
   "home": {
     "kicker": "Field clinic",
@@ -31,7 +32,8 @@
     "season": "This month",
     "voice": "Speak a weight or a dose",
     "voiceHint": "Heard on the phone. Nothing is saved until you confirm.",
-    "reach": "Practical help when a vet or crop specialist is hard to reach. If one is near, ask them. This is guidance, not a prescription."
+    "reach": "Practical help when a vet or crop specialist is hard to reach. If one is near, ask them. This is guidance, not a prescription.",
+    "medicine": "Look up a medicine"
   },
   "common": {
     "disclaimer": "Field guidance, not a licence to prescribe. The bottle label and the livestock office win. Sudden death with blood from the nose, foot and mouth, and a shed of dead birds: report them. Do not open the carcass.",
@@ -259,5 +261,24 @@
     "pdf": "Download data PDF",
     "latin": "The downloaded PDF is English and Roman Urdu so a printer can read it. The print sheet is Nastaliq.",
     "empty": "Add an animal in the herd book first."
+  },
+  "medicine": {
+    "title": "Medicine",
+    "lede": "Type the name on the bottle, or photograph the label. This shelf tells you what that medicine is for on this farm, and what it does not fix. The printed label, and a vet or crop specialist when you can reach one, decide the rate.",
+    "name": "Name on the bottle",
+    "placeholder": "Albendazole, copper, mancozeb…",
+    "photo": "Photograph the label",
+    "photoHint": "The photo is read for words only. It is not a chemical test. Hold the English name in the light.",
+    "reading": "Reading the label on this phone…",
+    "read": "Words read from the photo. Check them, then open the match.",
+    "unreadable": "No words came off that photo. Type the name you can see.",
+    "photoFail": "The label reader did not start. Type the name instead. Nothing was uploaded.",
+    "none": "That name is not on this shelf. Do not guess a twin bottle. Read the label or ask a vet or crop officer.",
+    "useful": "What it is for",
+    "not": "What it does not fix",
+    "care": "Before you use it",
+    "card": "Dose card already on this shelf",
+    "noRate": "This page does not invent a rate. Use the number, the crop or animal, and the waiting days printed on the bottle in your hand.",
+    "seen": "Where this shelf mentions it"
   }
 }

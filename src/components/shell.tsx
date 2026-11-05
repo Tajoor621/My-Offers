@@ -8,6 +8,7 @@ import {
   NotebookPen,
   Siren,
   Sprout,
+  Pill,
   Stethoscope,
   Wrench,
 } from "lucide-react";
@@ -24,6 +25,7 @@ const MAIN = [
 ] as const;
 
 const MORE = [
+  { to: "/medicines", key: "nav.medicines", icon: Pill },
   { to: "/diseases", key: "nav.diseases", icon: Stethoscope },
   { to: "/library", key: "nav.library", icon: BookOpen },
   { to: "/tools", key: "nav.tools", icon: Wrench },

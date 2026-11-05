@@ -1,4 +1,4 @@
-const CACHE = "khait-kalyaan-v1";
+const CACHE = "khait-kalyaan-v2";
 const FILES = ["./","index.html","app.css","app.js","data.json","assets/favicon.svg","assets/og.png","site.webmanifest"];
 
 self.addEventListener("install", (event) => {

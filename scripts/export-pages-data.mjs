@@ -13,6 +13,7 @@ import { ANIMAL_DISEASES } from "../src/data/diseases-animal.ts";
 import { CROP_DISEASES } from "../src/data/diseases-crop.ts";
 import { EMERGENCIES } from "../src/data/emergency.ts";
 import { BOOKS } from "../src/data/library.ts";
+import { MEDICINES } from "../src/data/medicines.ts";
 import { MONTHS, YEAR } from "../src/data/seasons.ts";
 
 const DISEASES = [...CROP_DISEASES, ...ANIMAL_DISEASES];
@@ -32,6 +33,7 @@ const payload = {
   seed: SEED_RATES,
   vitals: VITALS,
   cities: CITIES,
+  medicines: MEDICINES,
 };
 
 const out = join(root, "../data.json");

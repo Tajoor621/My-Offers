@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Mic, PawPrint, Siren, Sprout } from "lucide-react";
+import { Mic, PawPrint, Pill, Siren, Sprout } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EMERGENCIES } from "@/data/emergency";
 import { MONTHS, YEAR } from "@/data/seasons";
@@ -78,6 +78,13 @@ function Home() {
           </Link>
         ))}
       </div>
+      <Link to="/medicines" search={{ q: "", id: "" }} className="card flex items-center gap-3 p-4">
+        <Pill className="size-6 text-clay" aria-hidden />
+        <span>
+          <span className="block font-display text-2xl">{t("home.medicine")}</span>
+          <span className="text-muted">{t("medicine.photoHint")}</span>
+        </span>
+      </Link>
       <Link to="/voice" className="card flex items-center gap-3 p-4">
         <Mic className="size-6 text-green" aria-hidden />
         <span>

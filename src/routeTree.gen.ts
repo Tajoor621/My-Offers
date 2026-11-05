@@ -25,6 +25,7 @@ import { Route as HerdIndexRouteImport } from './routes/herd.index'
 import { Route as HerdIdRouteImport } from './routes/herd.$id'
 import { Route as LibraryIndexRouteImport } from './routes/library.index'
 import { Route as LibrarySlugRouteImport } from './routes/library.$slug'
+import { Route as MedicinesRouteImport } from './routes/medicines'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -106,6 +107,11 @@ const LibrarySlugRoute = LibrarySlugRouteImport.update({
   path: '/library/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MedicinesRoute = MedicinesRouteImport.update({
+  id: '/medicines',
+  path: '/medicines',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/diseases/': typeof DiseasesIndexRoute
   '/herd/': typeof HerdIndexRoute
   '/library/': typeof LibraryIndexRoute
+  '/medicines': typeof MedicinesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/diseases': typeof DiseasesIndexRoute
   '/herd': typeof HerdIndexRoute
   '/library': typeof LibraryIndexRoute
+  '/medicines': typeof MedicinesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/diseases/': typeof DiseasesIndexRoute
   '/herd/': typeof HerdIndexRoute
   '/library/': typeof LibraryIndexRoute
+  '/medicines': typeof MedicinesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/diseases/'
     | '/herd/'
     | '/library/'
+    | '/medicines'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/diseases'
     | '/herd'
     | '/library'
+    | '/medicines'
   id:
     | '__root__'
     | '/'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/diseases/'
     | '/herd/'
     | '/library/'
+    | '/medicines'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +248,7 @@ export interface RootRouteChildren {
   DiseasesIndexRoute: typeof DiseasesIndexRoute
   HerdIndexRoute: typeof HerdIndexRoute
   LibraryIndexRoute: typeof LibraryIndexRoute
+  MedicinesRoute: typeof MedicinesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -352,6 +365,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LibrarySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/medicines': {
+      id: '/medicines'
+      path: '/medicines'
+      fullPath: '/medicines'
+      preLoaderRoute: typeof MedicinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -372,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   DiseasesIndexRoute: DiseasesIndexRoute,
   HerdIndexRoute: HerdIndexRoute,
   LibraryIndexRoute: LibraryIndexRoute,
+  MedicinesRoute: MedicinesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

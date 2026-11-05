@@ -16,6 +16,11 @@ const UI = {
     addAnimal: "جانور شامل کریں", tag: "ٹیگ", name: "نام", sex: "جنس", female: "مادہ", male: "نر", unknown: "معلوم نہیں",
     weight: "وزن", medicine: "دوا", milkDays: "دودھ کے دن", meatDays: "گوشت کے دن", note: "نوٹ",
     voiceTitle: "لکیر لکھیں", voiceLede: "مثال: gaye number teen ka wazan do sau pachas kilo۔ تصدیق سے پہلے کچھ محفوظ نہیں ہوتا۔ مکمل ایپ میں آواز فون پر سنی جا سکتی ہے۔",
+    meds: "دوائیں", medLede: "بوتل کا نام لکھیں یا لیبل کی تصویر لیں۔ یہ شیلف بتاتی ہے دوا کس کام کی ہے اور کیا ٹھیک نہیں کرتی۔ مقدار بوتل پر لکھی ہوتی ہے۔",
+    medName: "بوتل پر نام", medPh: "البینڈازول، کاپر، مینکوزیب…", medPhoto: "لیبل کی تصویر",
+    medPhotoHint: "تصویر سے صرف الفاظ پڑھے جاتے ہیں۔ یہ کیمیائی جانچ نہیں۔",
+    medReading: "لیبل پڑھا جا رہا ہے…", medNone: "یہ نام اس شیلف پر نہیں۔ اندازہ نہ لگائیں۔",
+    useful: "کس کام کی ہے", notFix: "کیا ٹھیک نہیں کرتی", before: "استعمال سے پہلے", noRate: "یہ صفحہ مقدار خود سے نہیں بناتا۔ بوتل کا نمبر مانیں۔", seen: "شیلف میں جہاں آئی ہے",
     readLine: "لکیر پڑھیں", confirmSave: "تصدیق کر کے ریوڑ میں وزن محفوظ کریں",
     low: "کم یقین۔ دوبارہ لکھیں۔",
     fert: "کھاد کے تھیلے", dose: "ڈرنچ، ملی لٹر", tape: "فیته سے وزن", spray: "سپرے ٹینک", seed: "بیج", vitals: "عام حد",
@@ -50,6 +55,11 @@ const UI = {
     addAnimal: "Add animal", tag: "Tag", name: "Name", sex: "Sex", female: "Female", male: "Male", unknown: "Unknown",
     weight: "Weight", medicine: "Medicine", milkDays: "Milk days", meatDays: "Meat days", note: "Note",
     voiceTitle: "Type the entry", voiceLede: "Example: gaye number teen ka wazan do sau pachas kilo. Nothing is saved until you confirm. The full app can also hear this on the phone.",
+    meds: "Medicines", medLede: "Type the name on the bottle, or photograph the label. The shelf says what that medicine is for here, and what it does not fix. The printed rate wins.",
+    medName: "Name on the bottle", medPh: "Albendazole, copper, mancozeb…", medPhoto: "Photograph the label",
+    medPhotoHint: "The photo is read for words only. It is not a chemical test.",
+    medReading: "Reading the label…", medNone: "That name is not on this shelf. Do not guess a twin bottle.",
+    useful: "What it is for", notFix: "What it does not fix", before: "Before you use it", noRate: "This page does not invent a rate. Use the number printed on the bottle.", seen: "Where this shelf mentions it",
     readLine: "Read the typed line", confirmSave: "Confirm and save the weight in the herd book",
     low: "Low confidence. Please write it again.",
     fert: "Fertilizer bags", dose: "Drench millilitres", tape: "Weight from a tape", spray: "Spray tank", seed: "Usual seed rates", vitals: "Normal ranges",
@@ -73,7 +83,7 @@ const SEV = { watch: ["Watch", "نگہداشت"], treat: ["Treat", "علاج"], 
 const BOOK_KEY = "khait-kalyaan-book";
 const LANG_KEY = "khet-o-kalyan-lang";
 const NAV = [
-  ["home", "#/"], ["read", "#/read"], ["herd", "#/herd"], ["voice", "#/voice"],
+  ["home", "#/"], ["read", "#/read"], ["herd", "#/herd"], ["voice", "#/voice"], ["meds", "#/medicines"],
   ["shelf", "#/shelf"], ["tools", "#/tools"], ["weather", "#/weather"], ["year", "#/year"],
   ["emergency", "#/emergency"], ["cases", "#/cases"], ["library", "#/library"],
 ];
@@ -212,6 +222,7 @@ function home(query = "") {
     </div>
     <section class="card"><h2>${esc(t("season"))} · ${esc(tx(DATA.months[month].en, DATA.months[month].ur))}</h2><ul class="clean">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}</ul></section>
     <div class="row">${DATA.emergencies.map((item) => `<a class="btn clay" href="#/emergency/${esc(item.id)}">${esc(tx(item.en, item.ur))}</a>`).join("")}</div>
+    <a class="card" href="#/medicines"><strong>${esc(t("meds"))}</strong><br><span class="muted">${esc(t("medLede"))}</span></a>
     <a class="card" href="#/voice"><strong>${esc(t("voiceTitle"))}</strong><br><span class="muted">${esc(t("voiceLede"))}</span></a>
     <p class="muted">${esc(t("disclaimer"))}</p>`;
 }
@@ -395,6 +406,53 @@ function casesPage() {
   }).join("")}</div>` : `<p>${esc(t("empty"))}</p>`}`;
 }
 
+function searchMeds(query) {
+  const q = query.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  if (q.length < 2) return [];
+  const tokens = q.split(" ").filter((token) => token.length > 2);
+  return (DATA.medicines || []).map((medicine) => {
+    const names = [medicine.en, medicine.ur, ...medicine.aliases].map((name) => name.toLowerCase());
+    let score = names.some((name) => name === q || name.includes(q)) ? 8 : 0;
+    for (const token of tokens) if (names.some((name) => name.includes(token))) score += 2;
+    return { medicine, score };
+  }).filter((row) => row.score >= 2).sort((a, b) => b.score - a.score).map((row) => row.medicine);
+}
+
+function medicinePage(id) {
+  const selected = (DATA.medicines || []).find((item) => item.id === id);
+  const hits = searchMeds(medText);
+  const lines = (en, ur) => (lang === "ur" ? ur : en).map((line) => `<li>${esc(line)}</li>`).join("");
+  const dose = selected?.doseId ? (DATA.drugs || []).find((item) => item.id === selected.doseId) : null;
+  return `<h1>${esc(t("meds"))}</h1><p>${esc(t("medLede"))}</p>
+    <form id="med-find" class="stack">
+      <label class="block">${esc(t("medName"))}<input class="field" name="q" value="${esc(medText)}" placeholder="${esc(t("medPh"))}"></label>
+      <button class="btn primary" type="submit">${esc(t("search"))}</button>
+    </form>
+    <label class="card stack"><span class="font-display" style="font-size:1.4rem">${esc(t("medPhoto"))}</span><span class="muted">${esc(t("medPhotoHint"))}</span>
+      <input class="field" type="file" accept="image/*" capture="environment" id="med-photo">
+      ${medReading ? `<span>${esc(t("medReading"))}</span>` : ""}
+      ${medNote ? `<p>${esc(medNote)}</p>` : ""}
+    </label>
+    ${hits.length ? `<div class="stack">${hits.map((item) => `<a class="card" href="#/medicines/${esc(item.id)}"><strong>${esc(tx(item.en, item.ur))}</strong><br><span class="muted">${esc(tx(item.formEn, item.formUr))}</span></a>`).join("")}</div>` : medText.trim().length > 1 ? `<p>${esc(t("medNone"))}</p>` : ""}
+    ${selected ? `<article class="stack">
+      <h2>${esc(tx(selected.en, selected.ur))}</h2>
+      <p class="other">${esc(other(selected.en, selected.ur))}</p>
+      <p>${esc(tx(selected.formEn, selected.formUr))}</p>
+      <section class="card"><h3>${esc(t("useful"))}</h3><ul class="clean">${lines(selected.useEn, selected.useUr)}</ul></section>
+      <section class="card"><h3>${esc(t("notFix"))}</h3><ul class="clean">${lines(selected.notEn, selected.notUr)}</ul></section>
+      <section class="card"><h3>${esc(t("before"))}</h3><ul class="clean">${lines(selected.careEn, selected.careUr)}</ul></section>
+      ${dose ? `<form id="med-dose" class="card stack"><h3>${esc(t("dose"))}</h3>
+        <label class="block">${esc(t("body"))}<input class="field" name="kg" inputmode="decimal" value="${esc(medKg)}"></label>
+        <label class="block">${esc(t("bottle"))}<select class="field" name="strength">${dose.strengths.map((item, index) => `<option value="${index}" ${index === medStrength ? "selected" : ""}>${esc(tx(item.en, item.ur))}</option>`).join("")}</select></label>
+        <button class="btn primary" type="submit">${esc(t("result"))}</button><div id="med-dose-out"></div>
+        <p class="muted">${esc(tx(dose.noteEn, dose.noteUr))}</p>
+        <p>${esc(t("milkDays"))} ${dose.milkDays} · ${esc(t("meatDays"))} ${dose.meatDays}</p>
+      </form>` : `<p class="card">${esc(t("noRate"))}</p>`}
+      <p class="muted">${esc(t("label"))}</p>
+      <p class="muted">${esc(t("disclaimer"))}</p>
+    </article>` : ""}`;
+}
+
 function libraryPage(slug) {
   if (!slug) return `<h1>${esc(t("library"))}</h1><div class="stack">${DATA.books.map((bookItem) => `<a class="card" href="#/library/${esc(bookItem.slug)}"><strong>${esc(tx(bookItem.en, bookItem.ur))}</strong><br><span class="muted">${esc(bookItem.minutes)} ${esc(t("minutes"))}</span></a>`).join("")}</div>`;
   const item = DATA.books.find((row) => row.slug === slug);
@@ -408,6 +466,11 @@ let domain = "";
 let speciesId = "";
 let voiceText = "";
 let voiceParsed = null;
+let medText = "";
+let medNote = "";
+let medReading = false;
+let medKg = "";
+let medStrength = 0;
 let weather = { city: localStorage.getItem("khet-o-kalyan-place") || "lhr", forecast: null, cached: false, fail: false };
 
 function paint() {
@@ -419,7 +482,7 @@ function paint() {
   $("lang-ur").setAttribute("aria-pressed", String(lang === "ur"));
   $("lang-en").setAttribute("aria-pressed", String(lang === "en"));
   document.querySelector(".skip").textContent = t("skip");
-  const links = NAV.map(([key, href]) => `<a href="${href}" ${name === key || (key === "read" && name === "disease") ? 'aria-current="page"' : ""}>${esc(t(key))}</a>`).join("");
+    const links = NAV.map(([key, href]) => `<a href="${href}" ${name === key || (key === "read" && name === "disease") || (key === "meds" && name === "medicines") ? 'aria-current="page"' : ""}>${esc(t(key))}</a>`).join("");
   $("side").innerHTML = links;
   $("tabs").innerHTML = TABS.map(([key, href]) => `<a href="${href}" ${name === key ? 'aria-current="page"' : ""}>${esc(t(key))}</a>`).join("") + `<button type="button" id="open-more">${esc(t("more"))}</button>`;
   $("more-title").textContent = t("more");
@@ -439,6 +502,7 @@ function paint() {
   else if (name === "emergency") main.innerHTML = emergencyPage(id);
   else if (name === "year") main.innerHTML = yearPage();
   else if (name === "cases") main.innerHTML = casesPage();
+  else if (name === "medicines") main.innerHTML = medicinePage(id);
   else if (name === "library") main.innerHTML = libraryPage(id);
   else main.innerHTML = home();
   main.insertAdjacentHTML("beforeend", `<p class="muted">${esc(t("offline"))}</p><p><a href="https://github.com/Tajoor621/Khait-Kalyaan">${esc(t("repo"))}</a> · ${esc(t("full"))}</p>`);
@@ -578,6 +642,47 @@ function bind(name) {
       weather.fail = !cached;
     }
     paint();
+  });
+  $("med-find")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    medText = new FormData(event.target).get("q");
+    const found = searchMeds(medText);
+    location.hash = found[0] ? `#/medicines/${found[0].id}` : "#/medicines";
+  });
+  $("med-photo")?.addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    medReading = true;
+    medNote = "";
+    paint();
+    try {
+      const mod = await import("https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/+esm");
+      const worker = await mod.createWorker("eng");
+      const result = await worker.recognize(file);
+      await worker.terminate();
+      medText = String(result.data?.text || "").replace(/\s+/g, " ").trim();
+      medNote = medText || t("medNone");
+      const found = searchMeds(medText);
+      medReading = false;
+      if (found[0]) location.hash = `#/medicines/${found[0].id}`;
+      else paint();
+    } catch {
+      medReading = false;
+      medNote = t("medNone");
+      paint();
+    }
+  });
+  $("med-dose")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const selected = (DATA.medicines || []).find((item) => item.id === route().id);
+    const dose = (DATA.drugs || []).find((item) => item.id === selected?.doseId);
+    const bottle = dose?.strengths[Number(form.get("strength"))] || dose?.strengths[0];
+    medKg = form.get("kg");
+    medStrength = Number(form.get("strength")) || 0;
+    if (!dose || !bottle) return;
+    const ml = (Number(medKg) * dose.mgPerKg) / bottle.mgPerMl;
+    $("med-dose-out").textContent = `${Number.isFinite(ml) ? ml.toFixed(1) : "0"} ml`;
   });
   $("open-more")?.addEventListener("click", () => { $("more").hidden = false; $("more-close").focus(); });
   $("more-links")?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => { $("more").hidden = true; }));

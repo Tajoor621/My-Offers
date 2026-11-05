@@ -41,6 +41,7 @@ Everything below is in the source under `src/`.
 - **Voice log.** Record or type a line such as a weight. A speech model can run in the browser after you accept the download. Nothing is saved until you confirm. The app says the audio is not uploaded unless you export it.
 - **Weather.** A seven-day forecast from Open-Meteo, and climate normals from NASA POWER, for ten Pakistani cities or the phone’s location. The copy is cached on the phone. Live satellite greenness is not loaded. The paddock page asks you to score greenness by eye.
 - **Paddocks.** Drop corners on a map. Three points make an area. The boundary stays on the phone.
+- **Medicines.** Type the name on the bottle, or photograph the label. The shelf explains what that named medicine is for, what it does not fix, and where the disease notes mention it. A photo is read for the printed words only. It is not a chemical test. Only albendazole, fenbendazole, and ivermectin have a millilitre card. Every other rate stays on the bottle. If the name is not on the shelf, the app does not guess a twin bottle.
 - **Calculators.** Fertilizer bags, drench millilitres, a dairy ration, weight from a tape, a spray tank, usual seed rates, normal vital ranges, and a prescribed milligram-per-kilogram converter. The bottle label overrides the card. The converter is not an antibiotic dose.
 - **The year.** Month notes for crops and stock.
 - **Emergency.** Short “do this now” cards.
