@@ -79,4 +79,10 @@ Then open http://localhost:8080/
 
 ## GitHub Pages
 
-`docs/` is the browser helper. `docs/data.json` is exported from the app’s own shelf (`node --experimental-strip-types scripts/export-pages-data.mjs`). GitHub Pages should publish the `/docs` folder on `main`.
+The helper published at https://tajoor621.github.io/Khait-Kalyaan/ is the `index.html` at the repository root, with `app.js`, `app.css`, and `data.json`. `data.json` is exported from the app’s own shelf:
+
+```bash
+node --experimental-strip-types scripts/export-pages-data.mjs
+```
+
+GitHub Pages for this repository publishes the root of `main`. `.nojekyll` keeps that folder as plain files. `vite.config.ts` sets `appType: "custom"` so that root `index.html` is not the Vite entry. `npm run dev` still starts the full app.

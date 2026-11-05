@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Copy the field data the app already ships into docs/data.json
+ * Copy the field data the app already ships into data.json
  * so the GitHub Pages helper uses the same shelf, not a second copy written by hand.
  */
 import { writeFileSync } from "node:fs";
@@ -34,6 +34,6 @@ const payload = {
   cities: CITIES,
 };
 
-const out = join(root, "../docs/data.json");
+const out = join(root, "../data.json");
 writeFileSync(out, JSON.stringify(payload));
 console.log(`wrote ${out} (${DISEASES.length} diseases, ${SPECIES.length} species)`);
