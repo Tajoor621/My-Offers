@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Khait-Kalyaan | Chota Kisan aur Mobile Gujjar</title>
+    <meta
+      name="description"
+      content="Khait-Kalyaan (Chota Kisan aur Mobile Gujjar) is a practical Urdu and English helper for crops and cattle when a vet or crop specialist is hard to reach. Disease notes, herd book, weather, and farm tools stay on this phone."
+    />
+    <meta name="theme-color" content="#143d22" />
+    <link rel="canonical" href="https://tajoor621.github.io/Khait-Kalyaan/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta property="og:title" content="Khait-Kalyaan | Chota Kisan aur Mobile Gujjar" />
+    <meta
+      property="og:description"
+      content="Practical Urdu and English help for fields and cattle when a specialist is far. Guidance, not a prescription."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tajoor621.github.io/Khait-Kalyaan/" />
+    <meta property="og:image" content="https://tajoor621.github.io/Khait-Kalyaan/assets/og.png" />
+    <meta property="og:image:alt" content="Khait-Kalyaan. Chota Kisan aur Mobile Gujjar." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,640&family=Noto+Nastaliq+Urdu:wght@500;700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="band">
+      <div class="bar">
+        <a class="brand" href="#/">
+          <span class="mark" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name" id="brand-name" translate="no">کھیت و کلیان</span>
+            <span class="brand-line" translate="no">Khait-Kalyaan · Chota Kisan aur Mobile Gujjar</span>
+          </span>
+        </a>
+        <div class="langs" role="group" aria-label="Language">
+          <button type="button" id="lang-ur" aria-pressed="true">اردو</button>
+          <button type="button" id="lang-en" aria-pressed="false">English</button>
+        </div>
+      </div>
+    </header>
+    <p class="reach" id="reach"></p>
+    <div class="layout">
+      <nav class="side" id="side" aria-label="Sections"></nav>
+      <main id="main"></main>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+    <div id="more" class="more" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="more-title">
+        <div class="sheet-head">
+          <h2 id="more-title"></h2>
+          <button type="button" id="more-close"></button>
+        </div>
+        <div id="more-links"></div>
+      </div>
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>

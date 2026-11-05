@@ -73,6 +73,29 @@
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
+
+  :focus-visible {
+    outline: 3px solid var(--color-clay);
+    outline-offset: 3px;
+  }
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: 0.75rem;
+  top: 0.75rem;
+  z-index: 50;
+  transform: translateY(-200%);
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.65rem 0.95rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.skip:focus {
+  transform: none;
 }
 
 @layer components {

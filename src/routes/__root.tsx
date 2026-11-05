@@ -4,7 +4,9 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "کھیت و کلیان";
+const APP_NAME = "Khait-Kalyaan | Chota Kisan aur Mobile Gujjar";
+const APP_DESCRIPTION =
+  "Khait-Kalyaan (کھیت و کلیان, also Khet o Kalyan and Khait Khalyaan) — Chota Kisan aur Mobile Gujjar. A field clinic for crops and livestock: disease notes, a herd book, a voice log, weather, and farm calculators. Records stay on the phone.";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -12,12 +14,15 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      {
-        name: "description",
-        content:
-          "کھیت و کلیان — فصل اور مویشی کا فیلڈ کلینک۔ بیماری علامات سے پڑھیں، علاج کھولیں، کھاد اور خوراک کا حساب فون پر رکھیں۔",
-      },
+      { name: "description", content: APP_DESCRIPTION },
       { name: "theme-color", content: "#143d22" },
+      { property: "og:title", content: APP_NAME },
+      { property: "og:description", content: APP_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: APP_NAME },
+      { name: "twitter:description", content: APP_DESCRIPTION },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -31,7 +36,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: () => (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ur" dir="rtl" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

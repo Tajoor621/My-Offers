@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { speciesById } from "@/data/catalog";
 import { Disclaimer, Ltr, useCopy } from "@/components/bits";
-import { APP_EN, APP_UR } from "@/lib/brand";
+import { APP_EN, APP_LINE, APP_PUBLIC, APP_UR } from "@/lib/brand";
 import { herdDb, type Animal, type FeedRow, type MedRow, type WeightRow } from "@/lib/herd-db";
 
 export const Route = createFileRoute("/report")({
@@ -61,8 +61,8 @@ function ReportPage() {
     const { jsPDF } = await import("jspdf");
     const doc = new jsPDF();
     const lines = [
-      APP_EN,
-      "Field health sheet. Not a prescription. The bottle label wins.",
+      `${APP_PUBLIC} — ${APP_LINE}`,
+      `${APP_EN} · field health sheet. Not a prescription. The bottle label wins.`,
       `Tag: ${animal.tag}`,
       `Species: ${species?.en ?? animal.species}`,
       `Sex: ${animal.sex}`,
@@ -110,6 +110,11 @@ function ReportPage() {
           {animal ? (
             <article className="card grid gap-3 p-4" lang="ur" dir="rtl">
               <p className="text-sm text-muted">{APP_UR}</p>
+              <p className="text-sm text-muted">
+                <Ltr>
+                  {APP_PUBLIC} — {APP_LINE}
+                </Ltr>
+              </p>
               <h2 className="font-display text-3xl">
                 <Ltr>{animal.tag}</Ltr>
               </h2>

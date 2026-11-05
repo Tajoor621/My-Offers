@@ -1,6 +1,6 @@
 {
   "meta": {
-    "name": "Khet o Kalyan"
+    "name": "Khait-Kalyaan"
   },
   "nav": {
     "home": "Home",
@@ -8,6 +8,7 @@
     "herd": "Herd",
     "voice": "Voice",
     "more": "More",
+    "sections": "Sections",
     "diseases": "Disease index",
     "library": "Library",
     "tools": "Calculators",
@@ -29,7 +30,8 @@
     "animalsHint": "Fever, milk, sudden death",
     "season": "This month",
     "voice": "Speak a weight or a dose",
-    "voiceHint": "Heard on the phone. Nothing is saved until you confirm."
+    "voiceHint": "Heard on the phone. Nothing is saved until you confirm.",
+    "reach": "Practical help when a vet or crop specialist is hard to reach. If one is near, ask them. This is guidance, not a prescription."
   },
   "common": {
     "disclaimer": "Field guidance, not a licence to prescribe. The bottle label and the livestock office win. Sudden death with blood from the nose, foot and mouth, and a shed of dead birds: report them. Do not open the carcass.",
@@ -58,7 +60,8 @@
     "all": "All",
     "kg": "kg",
     "saved": "Saved on this phone.",
-    "language": "EN"
+    "language": "EN",
+    "skip": "Skip to content"
   },
   "diagnose": {
     "title": "Read the case",
